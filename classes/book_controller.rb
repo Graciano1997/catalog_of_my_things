@@ -32,14 +32,14 @@ class BookController
   end
 
   def list_all_books
-    @books_db.each do |book|
-      puts "|Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.cover_state}|"
-      # "id": 451,
-      # "title": "Graciano Henrique",
-      # "color": "Green",
-      # "publisher": "Graciano",
-      # "cover_state": "Muito Mal",
-      # "publish_date": "1997-11-13"
+    if !@books_db.empty?
+
+      @books_db.each do |book|
+      puts "#{@books_db.index(book)} -> |Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.cover_state}|"
+      end
+    else
+        puts "There is no Book in your Collection !"
+        puts "You are welcome to add it!"
     end
   end
 end
