@@ -1,5 +1,5 @@
 class Label
-  attr_accessor :title, :color
+  attr_accessor :title, :color, :add_item, :id
   attr_reader :items
 
   def initialize(title,color)
@@ -11,6 +11,6 @@ class Label
 
   def add_item(item)
     item.label=self
-    @item << item
+    @items << item
   end
 end
