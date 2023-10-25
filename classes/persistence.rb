@@ -4,6 +4,7 @@ require_relative 'label'
 
 class Persistance
   attr_reader :books
+
   def initialize
     unless Dir.exist?('db')
       Dir.mkdir('db')
@@ -15,19 +16,19 @@ class Persistance
   end
 
   def load_books
-  unless File.empty?('./db/books.json')
-    book_base = JSON.parse(File.read('./db/books.json'))
-    books = []
-    book_base.each do |book|
-      book_item = Book.new(book['publisher'], book['cover_state'],book['publish_date'])
-      book_item.id=book['id']
-      book_label = Label.new(book['title'],book['color'])
-      book_label.id=book['id_label']
-      book_item.label=book_label
-      books << book_item
+    unless File.empty?('./db/books.json')
+      book_base = JSON.parse(File.read('./db/books.json'))
+      books = []
+      book_base.each do |book|
+        book_item = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
+        book_item.id = book['id']
+        book_label = Label.new(book['title'], book['color'])
+        book_label.id = book['id_label']
+        book_item.label = book_label
+        books << book_item
+      end
     end
-  end
-  @books = books
+    @books = books
   end
 
   def book_hashed(books)

@@ -1,7 +1,6 @@
 require 'date'
 class Item
   attr_accessor :author, :genre, :label, :publish_date, :id
-  private attr_writer :archived
   attr_reader :archived
 
   def initialize(publish_date)
@@ -18,6 +17,9 @@ class Item
   end
 
   private
+
+  attr_writer :archived
+
   def can_be_archived?
     (Date.today.year - publish_date.year) > 10
   end
