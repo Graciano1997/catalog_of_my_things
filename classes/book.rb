@@ -1,5 +1,7 @@
 require 'date'
 require_relative "item"
+require_relative "label"
+
 class Book < Item
   attr_accessor :publisher, :cover_state
 
@@ -8,6 +10,7 @@ class Book < Item
     @publisher=publisher
     @cover_state=cover_state
   end
+
 
   private
   def can_be_archived?
