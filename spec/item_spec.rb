@@ -3,7 +3,7 @@ require_relative '../classes/item'
 
 RSpec.describe Item do
   let(:current_year) { Date.today.year }
-  let(:ten_years_ago) { Date.today - 10 * 365 }
+  let(:ten_years_ago) { Date.today - (10 * 365) }
 
   describe 'Initialization' do
     context 'when no publish date is provided' do
