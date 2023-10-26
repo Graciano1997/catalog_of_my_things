@@ -1,40 +1,27 @@
 require_relative 'item'
 
 class Game < Item
-  attr_accessor :multiplayer, :last_played_at, :author
+  attr_accessor :multiplayer, :last_played_at, :title
+  attr_reader :author
 
-  def initialize(publish_date, multiplayer, last_played_at, id: 0)
-    super(publish_date, id: id)
+  def initialize(title, published_date, multiplayer, last_played_at = nil)
+    super('GAME', published_date)
+
+    @title = title
     @multiplayer = multiplayer
-    @last_played_at = last_played_at
+    @last_played_at = last_played_at unless last_played_at.nil?
+    @author = nil
   end
+
+  private
 
   def can_be_archived?
-    super && (Date.today - Date.parse(@last_played_at)).to_i > 365 * 2
-  end
+    unless last_played_at.nil?
+      age_in_seconds = Time.now - last_played_at
 
-  # def to_json(*_args)
-  #   {
-  #     'id' => @id,
-  #     'genre' => @genre,
-  #     'author' => @author,
-  #     'source' => @source,
-  #     'label' => @label,
-  #     'publish_date' => @publish_date,
-  #     'archived' => @archived,
-  #     'multiplayer' => @multiplayer,
-  #     'last_played_at' => @last_played_at
-  #   }
-  # end
+      return age_in_seconds > (2 * 365 * 24 * 60 * 60)
+    end
 
-  def to_json(*_args)
-    {
-      id: @id,
-      publish_date: @publish_date.to_s,
-      multiplayer: @multiplayer,
-      last_played_at: @last_played_at.to_s,
-      author: @author.map(&:to_json),
-      label: @label.map(&:to_json)
-    }
+    false
   end
 end
