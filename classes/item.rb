@@ -1,7 +1,7 @@
 require 'date'
 class Item
-  attr_accessor :author, :genre, :label, :publish_date
-  private attr_writer :id, :archived
+  attr_accessor :author, :genre, :label, :publish_date, :id
+  attr_reader :archived
 
   def initialize(publish_date)
     @id = (rand(0..1000) + Math.sin((rand(0..360) * Math::PI) / 180)).to_i
@@ -17,6 +17,9 @@ class Item
   end
 
   private
+
+  attr_writer :archived
+
   def can_be_archived?
     (Date.today.year - publish_date.year) > 10
   end
