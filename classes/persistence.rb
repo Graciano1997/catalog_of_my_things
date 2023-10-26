@@ -18,17 +18,17 @@ class Persistance
   end
 
   def load_book_item(id)
-    if !File.empty?('./db/books.json')
-      book_base = JSON.parse(File.read('./db/books.json'))
-      book_item = nil
-      book_base.each do |book|
-          if book['id'].to_i == id.to_i
-          book_item = book
-          break
-          end
+    return if File.empty?('./db/books.json')
+
+    book_base = JSON.parse(File.read('./db/books.json'))
+    book_item = nil
+    book_base.each do |book|
+      if book['id'].to_i == id.to_i
+        book_item = book
+        break
       end
-      book_item
     end
+    book_item
   end
 
   def load_labels
@@ -39,12 +39,13 @@ class Persistance
         label_item = Label.new(label['title'], label['color'])
         label_item.id = label['id']
         label['items_id'].each do |item|
-          if(load_book_item(item))
+          next unless load_book_item(item)
+
           book_item_data = load_book_item(item)
-          book_item=Book.new(book_item_data["publisher"], book_item_data["cover_state"], book_item_data["publish_date"])
-          book_item.id=book_item_data["id"]
+          book_item = Book.new(book_item_data['publisher'], book_item_data['cover_state'],
+                               book_item_data['publish_date'])
+          book_item.id = book_item_data['id']
           label_item.add_item(book_item)
-          end
         end
         labels << label_item
       end
@@ -85,7 +86,6 @@ class Persistance
   end
 
   def label_hashed(labels)
-    items_objects = []
     label_objects = []
 
     labels.each do |label|
@@ -95,15 +95,15 @@ class Persistance
       label_hash['color'] = label.color.to_s
       items_key = []
       label.items.each do |item|
-      items_key << item.id.to_i
+        items_key << item.id.to_i
       end
-    label_hash['items_id'] = items_key
-    label_objects << label_hash
+      label_hash['items_id'] = items_key
+      label_objects << label_hash
     end
     label_objects
   end
 
-  def save_all(books,labels)
+  def save_all(books, labels)
     File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
     File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
     puts '***Saving all 📚📚 ...'

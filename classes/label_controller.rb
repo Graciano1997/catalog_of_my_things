@@ -2,7 +2,7 @@ require_relative 'label'
 require_relative 'persistence'
 
 class LabelController
-  attr_accessor :list_all_labels, :label_db
+  attr_accessor :label_db
 
   def initialize
     persistence_controller = Persistance.new
@@ -10,13 +10,15 @@ class LabelController
   end
 
   def list_all_labels
-    if !@label_db.empty?
+    if @label_db.empty?
+      puts ' '
+      puts "UPPS there is no Label in your Book's Collection !"
+      puts ' '
+    else
       @label_db.each do |label|
-      puts "#{ @label_db.index(label)} -> | Id: #{label.id} | Title: #{label.title} | Color: #{label.color} |"
+        puts "#{@label_db.index(label)} -> | Id: #{label.id} | Title: #{label.title} | Color: #{label.color} |"
       end
 
-    else
-      puts "UPPS there is no Label in your Book's Collection !"
     end
   end
 end
