@@ -1,63 +1,39 @@
+CREATE DATABASE catalog;
 
-CREATE TABLE author (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(250),
-    last_name VARCHAR(250)
+CREATE TABLE genres (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(255)
 );
 
-CREATE TABLE game (
-    id SERIAL PRIMARY KEY,
-    item_type VARCHAR(250),
-    multiplayer BOOLEAN,
-    last_played_at DATE,
-
-    published_date DATE,
-    archived BOOLEAN
-
-    genre_id INT REFERENCES genre(id),
-    author_id INT REFERENCES author(id),
-    label_id INT REFERENCES label(id),
-    
+CREATE TABLE items (
+  id BIGINT PRIMARY KEY,
+  genre_id BIGINT NOT NULL,
+  author_id BIGINT NOT NULL,
+  label_id BIGINT NOT NULL,
+  publish_date DATE NOT NULL,
+  archived BOOLEAN NOT NULL,
+  FOREIGN KEY (genre_id) REFERENCES genres(id),
+  FOREIGN KEY (author_id) REFERENCES authors(id),
+  FOREIGN KEY (label_id) REFERENCES labels(id)
 );
 
--- =====================
-CREATE TABLE label (
-    id SERIAL,
-    title VARCHAR(250),
-    color VARCHAR(50),
-    PRIMARY KEY (id, title)
-)
+CREATE TABLE music_albums (
+  id BIGINT PRIMARY KEY,
+  item_id BIGINT NOT NULL,
+  on_spotify BOOLEAN NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES items(id)
+);
 
-CREATE TABLE book (
-    id SERIAL PRIMARY KEY,
-    item_type VARCHAR(250),
-    title VARCHAR(250),
-    cover_state BOOLEAN,
+CREATE TABLE games (
+  id BIGINT PRIMARY KEY,
+  multiplayer VARCHAR(255) NOT NULL,
+  last_played_at DATE NOT NULL,
+);
 
-    published_date DATE,
-    archived BOOLEAN,
-    
-    genre_id INT REFERENCES genre(id),
-    author_id INT REFERENCES author(id),
-    label_id INT REFERENCES label(id)
-)
-
-
--- ===========================
-CREATE TABLE genre (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100)
-)
-
-CREATE TABLE music_album (
-    id SERIAL PRIMARY KEY,
-    item_type VARCHAR(250),
-    on_spotify BOOLEAN,
-    
-    published_date DATE,
-    archived BOOLEAN,
-
-    genre_id INT REFERENCES genre(id),
-    author_id INT REFERENCES author(id),
-    label_id INT REFERENCES label(id)
-)
+CREATE TABLE authors (
+  id BIGINT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  item_id BIGINT NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES items(id)
+);

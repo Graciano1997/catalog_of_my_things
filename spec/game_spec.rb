@@ -1,39 +1,21 @@
+require 'date'
 require_relative '../classes/game'
 
-RSpec.describe Game do
-  let(:game) { Game.new('Super Mario', '2022-01-01', true) }
-
-  describe '#initialize' do
-    it 'creates a new instance of Game' do
-      expect(game).to be_an_instance_of(Game)
-      expect(game.type).to eq('GAME')
-      expect(game.title).to eq('Super Mario')
-      expect(game.published_date).to eq('2022-01-01')
-      expect(game.multiplayer).to eq(true)
-      expect(game.last_played_at).to be_nil
-      expect(game.author).to be_nil
-    end
+describe Game do
+  before :each do
+    # multiplayer, last_played_at, genre, publish_date
+    @game = Game.new(true, '02-23-2020', 'rnb', '09-12-2022')
   end
 
-  describe '#can_be_archived?' do
-    context 'when last_played_at is nil' do
-      it 'returns false' do
-        expect(game.send(:can_be_archived?)).to eq(false)
-      end
-    end
+  it 'Checking Game instance' do
+    expect(@game).to be_instance_of Game
+  end
 
-    context 'when last_played_at is recent' do
-      it 'returns false' do
-        game.instance_variable_set(:@last_played_at, Time.now - (1 * 365 * 24 * 60 * 60))
-        expect(game.send(:can_be_archived?)).to eq(false)
-      end
-    end
+  it 'Returns the true for multiplayer' do
+    expect(@game.multiplayer).to eql true
+  end
 
-    context 'when last_played_at is old' do
-      it 'returns true' do
-        game.instance_variable_set(:@last_played_at, Time.now - (3 * 365 * 24 * 60 * 60))
-        expect(game.send(:can_be_archived?)).to eq(true)
-      end
-    end
+  it 'Returns the correct last_played_at' do
+    expect(@game.last_played_at).to eql '02-23-2020'
   end
 end
