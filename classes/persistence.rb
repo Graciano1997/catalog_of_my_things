@@ -108,7 +108,7 @@ class Persistance
     end
     label_objects
   end
-  
+
   def load_music_albums
     unless File.empty?('./db/musics.json')
       music_base = JSON.parse(File.read('./db/musics.json'))
@@ -139,7 +139,6 @@ class Persistance
     end
     music_objects
   end
-
 
   def save_all(books, labels)
     File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
