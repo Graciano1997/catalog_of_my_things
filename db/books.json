@@ -1,0 +1,20 @@
+[
+  {
+    "id": 679,
+    "title": "Graciano",
+    "color": "Red",
+    "id_label": 507,
+    "publisher": "Graciano",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
+  },
+  {
+    "id": 495,
+    "title": "Graciano",
+    "color": "Red",
+    "id_label": 507,
+    "publisher": "Gra",
+    "cover_state": "good",
+    "publish_date": "2012-12-12"
+  }
+]

@@ -16,10 +16,7 @@ class LabelController
       end
 
     else
-      puts "There is no Label in your Collection !"
+      puts "UPPS there is no Label in your Book's Collection !"
     end
   end
 end
-
-# label_controller_object = LabelController.new
-# label_controller_object.list_all_labels

@@ -41,7 +41,6 @@ class Persistance
         label['items_id'].each do |item|
           if(load_book_item(item))
           book_item_data = load_book_item(item)
-          puts book_item_data
           book_item=Book.new(book_item_data["publisher"], book_item_data["cover_state"], book_item_data["publish_date"])
           book_item.id=book_item_data["id"]
           label_item.add_item(book_item)
@@ -94,7 +93,6 @@ class Persistance
       label_hash['id'] = label.id.to_i
       label_hash['title'] = label.title.to_s
       label_hash['color'] = label.color.to_s
-      # label_hash['items_id'] = label.items.to_string
       items_key = []
       label.items.each do |item|
       items_key << item.id.to_i
@@ -112,7 +110,3 @@ class Persistance
     puts '________________________Saved 100% successfully ✅✅___________________________________________'
   end
 end
-
-# persist=Persistance.new
-# #  puts persist.labels[0].color
-# puts persist.labels[0].items[0].cover_state
