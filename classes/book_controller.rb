@@ -56,6 +56,7 @@ end
 
 book_controller_object = BookController.new
 book_controller_object.list_all_books
+book_controller_object.add_book
 
 persistence_controller = Persistance.new
 persistence_controller.save_all(book_controller_object.books_db, book_controller_object.label_db)
