@@ -3,7 +3,7 @@ class UserInterface
   def show()
     puts ' '
     puts ' '
-    puts '=========== MY AWESOME CATALOG OF MY THINGS 📚 🎧 🎮 '
+    puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎧 🎮 '
     puts ' '
     puts ' '
     puts '____________________________________________📚 📚 📘'
@@ -23,8 +23,8 @@ class UserInterface
     puts ' '
     puts '0️⃣  * Exit'
     puts ' '
-    print ' 👉 Please enter a number  0️⃣  to  9️⃣  : '
-    # @option = gets.chomp.to_i
+    print '------------ 👉 Please enter a number  0️⃣  to  9️⃣  :'
+    @option = gets.chomp.to_i
   end
 end
 
