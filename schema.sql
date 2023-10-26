@@ -22,10 +22,12 @@ CONSTRAINT fk_label FOREIGN KEY (label_id) REFERENCES label(id)
 
 CREATE TABLE IF NOT EXISTS musicAlbum (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  item_id INTEGER,
+  genre_id INT NOT NULL,
+  label_id INT NULL,
+  source_id INT NULL,
   on_spotify BOOLEAN,
   publish_date DATE,
-  FOREIGN KEY(item_id) REFERENCES Item(id)
+  FOREIGN KEY(genre_id) REFERENCES Genre(id)
 );
 
 CREATE TABLE IF NOT EXISTS Genre (
