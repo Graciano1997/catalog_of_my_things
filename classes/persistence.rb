@@ -2,6 +2,7 @@ require 'json'
 require_relative 'book'
 require_relative 'label'
 require_relative 'music_album'
+require_relative 'genre'
 
 class Persistance
   attr_accessor :labels, :books
@@ -21,6 +22,7 @@ class Persistance
     @books = load_books || []
     @labels = load_labels || []
     @music_album = load_music_albums || []
+    @genres = load_genres || []
   end
 
   def load_book_item(id)
@@ -140,10 +142,33 @@ class Persistance
     music_objects
   end
 
+  # Load Genres
+  def load_genres
+    unless File.empty?('./db/genres.json')
+      genre_base = JSON.parse(File.read('./db/genres.json'))
+      genres = []
+      genre_base.each do |genre_hash|
+        genre = Genre.from_hash(genre_hash)
+        genres << genre
+      end
+    end
+    @genres = genres
+  end
+
+  # Save genres
+
+  def save_genres(genres)
+    File.write('./db/genres.json', JSON.pretty_generate(genres.map(&:to_hash)), mode: 'w')
+    puts '***Saving genres 🎵🎵 ...'
+    puts "Saved #{genres.length} genres."
+    puts '________________________Saved 100% successfully ✅✅___________________________________________'
+  end
+
   def save_all(books, labels)
     File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
     File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
     save_music_albums(music_albums)
+    save_genres(genres)
     puts '***Saving all 📚📚 ...'
     puts '________________________Saved 100% successfully ✅✅___________________________________________'
   end
