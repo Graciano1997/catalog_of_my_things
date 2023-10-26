@@ -1,6 +1,7 @@
 require 'json'
 require_relative 'book'
 require_relative 'label'
+require_relative 'music_album'
 
 class Persistance
   attr_accessor :labels, :books
@@ -19,6 +20,7 @@ class Persistance
     end
     @books = load_books || []
     @labels = load_labels || []
+    @music_album = load_music_albums || []
   end
 
   def load_book_item(id)
@@ -106,10 +108,43 @@ class Persistance
     end
     label_objects
   end
+  
+  def load_music_albums
+    unless File.empty?('./db/musics.json')
+      music_base = JSON.parse(File.read('./db/musics.json'))
+      music_albums = []
+      music_base.each do |music|
+        music_item = MusicAlbum.new(music['publish_date'], music['on_spotify'])
+        music_item.id = music['id']
+        music_albums << music_item
+      end
+    end
+    @music_albums = music_albums
+  end
+
+  def save_music_albums(music_albums)
+    File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
+    puts '***Saving music albums 🎵🎵 ...'
+    puts '________________________Saved 100% successfully ✅✅___________________________________________'
+  end
+
+  def music_albums_hashed(music_albums)
+    music_objects = []
+    music_albums.each do |music_album|
+      music_hash = {}
+      music_hash['id'] = music_album.id.to_i
+      music_hash['publish_date'] = music_album.publish_date
+      music_hash['on_spotify'] = music_album.on_spotify
+      music_objects << music_hash
+    end
+    music_objects
+  end
+
 
   def save_all(books, labels)
     File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
     File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
+    save_music_albums(music_albums)
     puts '***Saving all 📚📚 ...'
     puts '________________________Saved 100% successfully ✅✅___________________________________________'
   end
