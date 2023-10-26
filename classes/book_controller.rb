@@ -5,7 +5,6 @@ require_relative 'label_controller'
 
 class BookController
   attr_accessor :books_db, :label_db
-
   def initialize
     persistence_controller = Persistance.new
     @books_db = persistence_controller.books
@@ -54,8 +53,8 @@ class BookController
   end
 end
 
-book_controller_object = BookController.new
-book_controller_object.add_book
+# book_controller_object = BookController.new
+# book_controller_object.add_book
 
-persistence_controller = Persistance.new
-persistence_controller.save_all(book_controller_object.books_db, book_controller_object.label_db)
+# persistence_controller = Persistance.new
+# persistence_controller.save_all(book_controller_object.books_db, book_controller_object.label_db)
