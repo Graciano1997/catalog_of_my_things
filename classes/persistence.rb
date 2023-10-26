@@ -11,6 +11,10 @@ class Persistance
       Dir.chdir('./db')
       `touch books.json`
       `touch labels.json`
+      `touch games.json`
+      `touch authors.json`
+      `touch musics.json`
+      `touch genres.json`
       Dir.chdir('../')
     end
     @books = load_books || []
