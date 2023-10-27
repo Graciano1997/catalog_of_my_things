@@ -108,9 +108,17 @@ class Persistance
   end
 
   def save_all(books, labels)
+    puts ' '
+    puts ' 😋 🤩 Saving Time.....................................'
+    puts ' '
+    puts 'Run:: 👉 Saving all Data______________________📚 🎵 🎮'
+    puts ' '
     File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
     File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
-    puts '***Saving all 📚📚 ...'
-    puts '________________________Saved 100% successfully ✅✅___________________________________________'
+    puts 'Saving: 👉 50%'
+    puts '________________________👉 Saved 100% 👈_______________'
+    puts ' '
+    puts 'successfull 👍 ✅'
+    puts ' '
   end
 end

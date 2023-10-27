@@ -16,5 +16,41 @@
     "publisher": "Gra",
     "cover_state": "good",
     "publish_date": "2023-12-12"
+  },
+  {
+    "id": 193,
+    "title": "Graciano",
+    "color": "Blue",
+    "id_label": 789,
+    "publisher": "Henrique",
+    "cover_state": "good",
+    "publish_date": "2023-12-11"
+  },
+  {
+    "id": 929,
+    "title": "Microverse",
+    "color": "red",
+    "id_label": 874,
+    "publisher": "Gra",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
+  },
+  {
+    "id": 572,
+    "title": "Graciano",
+    "color": "Blue",
+    "id_label": 789,
+    "publisher": "aeasdf",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
+  },
+  {
+    "id": 930,
+    "title": "Microverse",
+    "color": "red",
+    "id_label": 874,
+    "publisher": "Zelalem",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
   }
 ]

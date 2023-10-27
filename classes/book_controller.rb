@@ -12,6 +12,9 @@ class BookController
   end
 
   def add_book
+    puts ' '
+    puts 'Run:: 👉 Creating New Book__________________________________📖'
+    puts ' '
     label_controller_object = LabelController.new
     label_controller_object.list_all_labels
     puts 'Please Ensure to press Enter to start add book Operation' if @label_db.empty?
@@ -39,9 +42,14 @@ class BookController
     book_item.label = book_label
     @books_db << book_item
     @label_db << book_label unless @label_db.include?(book_label)
+    puts ' '
+    puts 'Book Created Successfully_________________________________📖 ✅'
   end
 
   def list_all_books
+    puts ' '
+    puts 'Run:: 👉 List All Books______________________________________📖'
+    puts ' '
     if @books_db.empty?
       puts 'There is no Book in your Collection !'
       puts 'You are welcome to add it!'
@@ -50,11 +58,7 @@ class BookController
         puts "#{@books_db.index(book)} -> | Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.publish_date} |"
       end
     end
+    puts ' '
+    puts 'Book List Displayed Successfully___________________________📕 ✅'
   end
 end
-
-# book_controller_object = BookController.new
-# book_controller_object.add_book
-
-# persistence_controller = Persistance.new
-# persistence_controller.save_all(book_controller_object.books_db, book_controller_object.label_db)

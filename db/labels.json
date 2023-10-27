@@ -5,7 +5,18 @@
     "color": "red",
     "items_id": [
       417,
-      547
+      547,
+      929,
+      930
+    ]
+  },
+  {
+    "id": 789,
+    "title": "Graciano",
+    "color": "Blue",
+    "items_id": [
+      193,
+      572
     ]
   }
 ]

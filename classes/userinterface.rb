@@ -2,28 +2,29 @@ class UserInterface
   attr_accessor :option
 
   def show()
+    `clear`
     puts ' '
-    puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎧 🎮 '
+    puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎵 🎮 '
     puts ' '
     puts ' '
-    puts '____________________________________________📚 📚 📘'
+    puts '____________________________________________________📘'
     puts '1️⃣  * List all books 📖'
-    puts '2️⃣  * List all Labels ℹ 🏷'
+    puts '2️⃣  * List all Labels 🔖'
     puts '3️⃣  * Add books ➕ 📘'
     puts ' '
-    puts '____________________________________________🎧 🔊 🎷'
+    puts '____________________________________________________🎵'
     puts '4️⃣  * List all Music ALbums 🎼'
     puts '5️⃣  * List all Genres 🎤'
-    puts '6️⃣  * Add a music Album 🎧 '
+    puts '6️⃣  * Add a music Album ➕ 🎵 '
     puts ' '
-    puts '____________________________________________🎮 🎯 🎲'
+    puts '_____________________________________________________🎮'
     puts '7️⃣  * List of Games 🎮'
     puts '8️⃣  * List all authors 👤'
     puts '9️⃣  * Add a game ➕ 🎮'
     puts ' '
     puts '0️⃣  * Exit'
     puts ' '
-    print '------------ 👉 Please enter a number  0️⃣  to  9️⃣  :'
+    print '------------ 👉 Please enter a number  0️⃣   to  9️⃣  :'
     @option = gets.chomp.to_i
   end
 end
