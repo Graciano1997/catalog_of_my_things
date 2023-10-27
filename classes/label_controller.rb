@@ -10,6 +10,9 @@ class LabelController
   end
 
   def list_all_labels
+    puts ' '
+    puts 'Run:: 👉 List All Labels______________________________________🔖'
+    puts ' '
     if @label_db.empty?
       puts ' '
       puts "UPPS there is no Label in your Book's Collection !"
@@ -20,5 +23,7 @@ class LabelController
       end
 
     end
+    puts ' '
+    puts 'Labels List Displayed Successfully___________________________🔖 ✅'
   end
 end
