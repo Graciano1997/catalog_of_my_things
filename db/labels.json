@@ -1,19 +1,11 @@
 [
   {
-    "id": 952,
+    "id": 874,
     "title": "Microverse",
-    "color": "Purle",
+    "color": "red",
     "items_id": [
-      869,
-      428
-    ]
-  },
-  {
-    "id": 983,
-    "title": "JS",
-    "color": "yellow",
-    "items_id": [
-      817
+      417,
+      547
     ]
   }
 ]

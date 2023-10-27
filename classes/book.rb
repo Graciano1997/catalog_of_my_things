@@ -14,6 +14,6 @@ class Book < Item
   private
 
   def can_be_archived?
-    @can_be_archived || cover_state.eql?('bad') ? true : false
+    super || cover_state.eql?('bad') ? true : false
   end
 end
