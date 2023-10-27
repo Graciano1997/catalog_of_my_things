@@ -6,9 +6,8 @@ require_relative 'label_controller'
 class BookController
   attr_accessor :books_db, :label_db
   def initialize
-    persistence_controller = Persistance.new
-    @books_db = persistence_controller.books
-    @label_db = persistence_controller.labels
+    @books_db = []
+    @label_db = []
   end
 
   def add_book
@@ -47,7 +46,7 @@ class BookController
       puts 'You are welcome to add it!'
     else
       @books_db.each do |book|
-        puts "#{@books_db.index(book)} -> | Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.cover_state} |"
+        puts "#{@books_db.index(book)} -> | Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.publish_date} |"
       end
     end
   end

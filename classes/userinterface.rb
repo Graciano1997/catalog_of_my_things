@@ -1,7 +1,6 @@
 class UserInterface
-  attr_reader :option
+  attr_accessor :option
   def show()
-    puts ' '
     puts ' '
     puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎧 🎮 '
     puts ' '
@@ -27,6 +26,3 @@ class UserInterface
     @option = gets.chomp.to_i
   end
 end
-
-element=UserInterface.new
-element.show

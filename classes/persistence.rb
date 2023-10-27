@@ -4,7 +4,6 @@ require_relative 'label'
 
 class Persistance
   attr_accessor :labels, :books
-
   def initialize
     unless Dir.exist?('db')
       Dir.mkdir('db')
