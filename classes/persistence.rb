@@ -1,6 +1,8 @@
 require 'json'
 require_relative 'book'
 require_relative 'label'
+require_relative 'music_album'
+require_relative 'genre'
 
 class Persistance
   attr_accessor :labels, :books
@@ -19,6 +21,8 @@ class Persistance
     end
     @books = load_books || []
     @labels = load_labels || []
+    @music_album = load_music_albums || []
+    @genres = load_genres || []
   end
 
   def load_book_item(id)
@@ -105,6 +109,59 @@ class Persistance
       label_objects << label_hash
     end
     label_objects
+  end
+
+  def load_music_albums
+    unless File.empty?('./db/musics.json')
+      music_base = JSON.parse(File.read('./db/musics.json'))
+      music_albums = []
+      music_base.each do |music|
+        music_item = MusicAlbum.new(music['publish_date'], music['on_spotify'])
+        music_item.id = music['id']
+        music_albums << music_item
+      end
+    end
+    @music_albums = music_albums
+  end
+
+  def save_music_albums(music_albums)
+    File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
+    puts '***Saving music albums 🎵🎵 ...'
+    puts '________________________Saved 100% successfully ✅✅___________________________________________'
+  end
+
+  def music_albums_hashed(music_albums)
+    music_objects = []
+    music_albums.each do |music_album|
+      music_hash = {}
+      music_hash['id'] = music_album.id.to_i
+      music_hash['publish_date'] = music_album.publish_date
+      music_hash['on_spotify'] = music_album.on_spotify
+      music_objects << music_hash
+    end
+    music_objects
+  end
+
+  # Load Genres
+  def load_genres
+    unless File.empty?('./db/genres.json')
+      genre_base = JSON.parse(File.read('./db/genres.json'))
+      genres = []
+      genre_base.each do |genre_hash|
+        genre = Genre.from_hash(genre_hash)
+        genres << genre
+      end
+    end
+    @genres = genres
+  end
+
+  # Save genres
+
+  def save_genres(genres)
+    File.write('./db/genres.json', JSON.pretty_generate(genres.map(&:to_hash)), mode: 'w')
+    puts '***Saving genres 🎵🎵 ...'
+    puts "Saved #{genres.length} genres."
+    puts '________________________Saved 100% successfully ✅✅___________________________________________'
   end
 
   def save_all(books, labels)
