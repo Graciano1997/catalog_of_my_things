@@ -1,12 +1,11 @@
 require 'json'
 require_relative 'book'
 require_relative 'label'
-require_relative 'music_album'
 require_relative 'genre'
+require_relative 'music_album'
 
 class Persistance
-  attr_accessor :labels, :books
-
+  attr_accessor :labels, :books, :genres, :music_album
   def initialize
     unless Dir.exist?('db')
       Dir.mkdir('db')
@@ -19,15 +18,27 @@ class Persistance
       `touch genres.json`
       Dir.chdir('../')
     end
-    @books = load_books || []
-    @labels = load_labels || []
-    @music_album = load_music_albums || []
-    @genres = load_genres || []
+     @books = load_books || []
+     @labels = load_labels || []
+     @music_album = load_music_albums || []
+     @genres = load_genres || []
   end
+
+   def load_music_album_item(id)
+     return if File.empty?('./db/musics.json')
+     music_base = JSON.parse(File.read('./db/musics.json'))
+     music_item = nil
+     music_base.each do |music|
+       if music['id'].to_i == id.to_i
+         music_item = music
+         break
+       end
+     end
+     music_item
+   end
 
   def load_book_item(id)
     return if File.empty?('./db/books.json')
-
     book_base = JSON.parse(File.read('./db/books.json'))
     book_item = nil
     book_base.each do |book|
@@ -48,10 +59,8 @@ class Persistance
         label_item.id = label['id']
         label['items_id'].each do |item|
           next unless load_book_item(item)
-
           book_item_data = load_book_item(item)
-          book_item = Book.new(book_item_data['publisher'], book_item_data['cover_state'],
-                               book_item_data['publish_date'])
+          book_item = Book.new(book_item_data['publisher'], book_item_data['cover_state'],book_item_data['publish_date'])
           book_item.id = book_item_data['id']
           label_item.add_item(book_item)
         end
@@ -95,7 +104,6 @@ class Persistance
 
   def label_hashed(labels)
     label_objects = []
-
     labels.each do |label|
       label_hash = {}
       label_hash['id'] = label.id.to_i
@@ -111,71 +119,85 @@ class Persistance
     label_objects
   end
 
-  def load_music_albums
-    unless File.empty?('./db/musics.json')
-      music_base = JSON.parse(File.read('./db/musics.json'))
-      music_albums = []
-      music_base.each do |music|
-        music_item = MusicAlbum.new(music['publish_date'], music['on_spotify'])
-        music_item.id = music['id']
-        music_albums << music_item
+  def genre_hashed(genres)
+    genre_objects = []
+    genres.each do |genre|
+      genre_hash = {}
+      genre_hash['id'] = genre.id.to_i
+      genre_hash['name'] = genre.name.to_s
+      items_key = []
+      genre.items.each do |item|
+        items_key << item.id.to_i
       end
+      genre_hash['items_id'] = items_key
+      genre_objects << genre_hash
     end
-    @music_albums = music_albums
+    genre_objects
   end
 
-  def save_music_albums(music_albums)
+   def load_music_albums
+     unless File.empty?('./db/musics.json')
+       music_base = JSON.parse(File.read('./db/musics.json'))
+       music_albums_item = []
+       music_base.each do |music|
+         music_item = MusicAlbum.new(music['publish_date'], music['on_spotify'])
+         genre_item=Genre.new(music['genre'])
+         genre_item.id=music['id_genre']
+         music_item.id = music['id']
+         music_item.genre=genre_item
+         music_albums_item << music_item
+       end
+     end
+     @music_albums = music_albums_item
+   end
+
+
+
+   def music_albums_hashed(music_albums)
+     music_objects = []
+     music_albums.each do |music_album|
+       music_hash = {}
+       music_hash['id'] = music_album.id.to_i
+       music_hash['publish_date'] = music_album.publish_date
+       music_hash['genre'] = music_album.genre.name
+       music_hash['on_spotify'] = music_album.on_spotify
+       music_hash['id_genre'] = music_album.genre.id.to_i
+       music_objects << music_hash
+     end
+     music_objects
+   end
+
+   def save_music_albums(music_albums)
     File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
     puts '***Saving music albums 🎵🎵 ...'
     puts '________________________Saved 100% successfully ✅✅___________________________________________'
   end
-
-  def music_albums_hashed(music_albums)
-    music_objects = []
-    music_albums.each do |music_album|
-      music_hash = {}
-      music_hash['id'] = music_album.id.to_i
-      music_hash['publish_date'] = music_album.publish_date
-      music_hash['on_spotify'] = music_album.on_spotify
-      music_objects << music_hash
-    end
-    music_objects
-  end
-
-  # Load Genres
-  def load_genres
-    unless File.empty?('./db/genres.json')
-      genre_base = JSON.parse(File.read('./db/genres.json'))
-      genres = []
-      genre_base.each do |genre_hash|
-        genre = Genre.from_hash(genre_hash)
-        genres << genre
+  #  Load Genres
+     def load_genres
+       unless File.empty?('./db/genres.json')
+         genre_base = JSON.parse(File.read('./db/genres.json'))
+         genres = []
+         genre_base.each do |genre_item|
+          genre_item_object = Genre.new(genre_item['name'])
+          genre_item_object.id = genre_item['id']
+           genre_item['items_id'].each do |item|
+           next unless load_music_album_item(item)
+           music_item_data = load_music_album_item(item)
+             music_item = MusicAlbum.new(music_item_data['publish_date'],music_item_data['on_spotify'])
+             music_item.id = music_item_data['id']
+             genre_item_object.add_item(music_item)
+            end
+          genres << genre_item_object
       end
+      @genres = genres
+     end
     end
-    @genres = genres
-  end
-
-  # Save genres
+      # Save genres
 
   def save_genres(genres)
-    File.write('./db/genres.json', JSON.pretty_generate(genres.map(&:to_hash)), mode: 'w')
+    File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w')
     puts '***Saving genres 🎵🎵 ...'
     puts "Saved #{genres.length} genres."
     puts '________________________Saved 100% successfully ✅✅___________________________________________'
-  end
-
-  def save_all(books, labels)
-    puts ' '
-    puts ' 😋 🤩 Saving Time.....................................'
-    puts ' '
-    puts 'Run:: 👉 Saving all Data______________________📚 🎵 🎮'
-    puts ' '
-    File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
-    File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
-    puts 'Saving: 👉 50%'
-    puts '________________________👉 Saved 100% 👈_______________'
-    puts ' '
-    puts 'successfull 👍 ✅'
-    puts ' '
   end
 end
