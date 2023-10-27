@@ -1,6 +1,6 @@
 require_relative 'book'
 require_relative 'label'
-require_relative 'persistence'
+# require_relative 'persistence'
 require_relative 'label_controller'
 
 class BookController

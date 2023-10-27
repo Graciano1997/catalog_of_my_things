@@ -1,7 +1,7 @@
+require 'date'
 require_relative 'music_album'
 require_relative 'genre'
-require_relative 'persistence'
-require_relative 'genre_C'
+# require_relative 'persistence'
 
 class MusicAlbumController
     attr_accessor :genre_db, :music_db 
@@ -13,7 +13,7 @@ class MusicAlbumController
 
     def add_music
         puts ' '
-        puts 'Run:: 👉 Creating New Music_Album__________________________________📖'
+        puts 'Run:: 👉 Creating New Music_Album__________________________________🎵'
         puts ' '
         genre_controller_object = GenreController.new
         genre_controller_object.list_all_genres
@@ -29,18 +29,34 @@ class MusicAlbumController
         else
           music_genre = @genre_db[option.to_i]
         end
-        puts "When did the music published"
-        music_publishDate = gets.chomp.to_s
-        puts "is the music released on spotify Type yes or NO"
-        music_on_spotify = gets.chomp.to_s.downcase
-    
+        puts "Enter the published date eg: {2023-10-11}"
+        music_publishDate = Date.parse(gets.chomp.to_s)
+        puts "Is the music released on spotify ? Type Yes or No"
+        is_music_on_spotify? = gets.chomp.to_s.downcase
+        music_on_spotify = is_music_on_spotify?.eql?("yes") ? true : false
         music_item = Music_Album.new(music_publishDate, music_on_spotify)
         music_genre.add_item(music_item)
         music_item.genre = music_genre
         @music_db << music_item
         @genre_db << music_genre unless @genre_db.include?(music_genre)
         puts ' '
-        puts 'Music Created Successfully_________________________________📖 ✅'
+        puts 'Music Added Successfully__________________________________🎵 ✅'
+      end
+
+      def list_all_musics
+        puts ' '
+        puts 'Run:: 👉 List All Musics______________________________________🎵'
+        puts ' '
+        if @music_db.empty?
+          puts 'There is no Music in your Collection !'
+          puts 'You are welcome to add it! 🎵'
+        else
+          @music_db.each do |music|
+            puts "#{@music_db.index(music)} -> | Id: #{music.id} | Genre: #{music.genre.name}  | Publish Date : #{music.publish_date} |"
+          end
+        end
+        puts ' '
+        puts 'Music List Displayed Successfully___________________________🎵 ✅'
       end
 
 end

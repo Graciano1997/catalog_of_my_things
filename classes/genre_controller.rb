@@ -3,7 +3,6 @@ require_relative 'persistence'
 
 class GenreController
     attr_accessor :genre_db
-
     def initialize
         persistence_controller = Persistance.new
         @genre_db = persistence_controller.genres
@@ -11,12 +10,12 @@ class GenreController
 
     def list_all_genres
         puts ' '
-        puts 'Run:: 👉 List All Genres______________________________________🔖'
+        puts 'Run:: 👉 List Genres Collection_________________________________🎵'
         puts ' '
 
         if @genre_db.empty?
             puts ' '
-            puts "UPPS there is no Label in your Book's Collection !"
+            puts "UPPS there is no Genre in your Music's Collection !"
             puts ' '
         else
             @genre_db.each do |genre|
@@ -24,6 +23,6 @@ class GenreController
             end
         end
         puts ' '
-        puts 'Labels List Displayed Successfully___________________________🔖 ✅'
+        puts 'Genre List Displayed Successfully____________________________✅ 🎵'
     end
 end
