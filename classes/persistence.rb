@@ -151,8 +151,6 @@ class Persistance
      @music_albums = music_albums_item
    end
 
-
-
    def music_albums_hashed(music_albums)
      music_objects = []
      music_albums.each do |music_album|
@@ -167,13 +165,37 @@ class Persistance
      music_objects
    end
 
-   def save_music_albums(music_albums)
+   def save_all(books, labels,music_albums,genres)
+    puts ' '
+    puts ' 😋 🤩 Saving Time.....................................'
+    puts ' '
+    puts 'Run:: 👉 Saving all Data______________________📚 🎵 🎮'
+    puts ' '
+    File.write('./db/books.json', JSON.pretty_generate(book_hashed(books)), mode: 'w')
+    File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
     File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
-    puts '***Saving music albums 🎵🎵 ...'
-    puts '________________________Saved 100% successfully ✅✅___________________________________________'
+    File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w') 
+    puts 'Saving: 👉 75%'
+    puts '________________________👉 Saved 100% 👈_______________'
+    puts ' '
+    puts 'successfull 👍 ✅'
+    puts ' '
   end
+
+  # def save_genres(genres)
+  #   File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w')
+  #   puts '***Saving genres 🎵🎵 ...'
+  #   puts "Saved #{genres.length} genres."
+  #   puts '________________________Saved 100% successfully ✅✅___________________________________________'
+  # end
+  #  def save_music_albums(music_albums)
+  #   File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
+  #   puts '***Saving music albums 🎵🎵 ...'
+  #   puts '________________________Saved 100% successfully ✅✅___________________________________________'
+  # end
   #  Load Genres
-     def load_genres
+
+  def load_genres
        unless File.empty?('./db/genres.json')
          genre_base = JSON.parse(File.read('./db/genres.json'))
          genres = []
@@ -192,12 +214,4 @@ class Persistance
       @genres = genres
      end
     end
-      # Save genres
-
-  def save_genres(genres)
-    File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w')
-    puts '***Saving genres 🎵🎵 ...'
-    puts "Saved #{genres.length} genres."
-    puts '________________________Saved 100% successfully ✅✅___________________________________________'
-  end
 end

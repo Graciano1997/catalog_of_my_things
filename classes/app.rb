@@ -29,7 +29,7 @@ class App
   end
 
   def quit
-    @persistence_controller.save_all(@book_controller_object.books_db, @book_controller_object.label_db)
+    @persistence_controller.save_all(@book_controller_object.books_db, @book_controller_object.label_db,[],[])
     puts ' '
     puts ' '
     puts 'Thank you for using this App! 🙏🙏'
