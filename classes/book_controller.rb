@@ -17,10 +17,11 @@ class BookController
     puts ' '
     label_controller_object = LabelController.new
     label_controller_object.list_all_labels
+    puts ' '
     puts 'Please Ensure to press Enter to start add book Operation' if @label_db.empty?
     puts "You can use one of the above label's option eg: 0 Or press Enter to ignore to create the new Book's Label" unless @label_db.empty?
-
     option = gets.chomp
+    puts ' '
     if option.eql?('')
       puts "Please write Book's title"
       book_title = gets.chomp.to_s
@@ -52,7 +53,7 @@ class BookController
     puts ' '
     if @books_db.empty?
       puts 'There is no Book in your Collection !'
-      puts 'You are welcome to add it!'
+      puts 'You are welcome to add it! 📖'
     else
       @books_db.each do |book|
         puts "#{@books_db.index(book)} -> | Id: #{book.id} | Title: #{book.label.title} | Color: #{book.label.color} | Publisher: #{book.publisher} | Cover state : #{book.cover_state} | Publish Date : #{book.publish_date} |"
