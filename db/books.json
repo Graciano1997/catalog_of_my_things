@@ -61,5 +61,14 @@
     "publisher": "Gra",
     "cover_state": "good",
     "publish_date": "2023-10-10"
+  },
+  {
+    "id": 476,
+    "title": "Graciano",
+    "color": "Blue",
+    "id_label": 789,
+    "publisher": "Gra",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
   }
 ]

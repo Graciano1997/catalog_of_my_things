@@ -19,7 +19,7 @@ class GenreController
             puts ' '
         else
             @genre_db.each do |genre|
-                puts "#{@genre_db.index(genre)} -> | Id: #{genre.id} | Name: #{genre.name} | "
+                puts "#{@genre_db.index(genre)} -> | Id: #{genre.id} | Genre: #{genre.name} | "
             end
         end
         puts ' '

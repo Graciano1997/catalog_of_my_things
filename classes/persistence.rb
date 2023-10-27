@@ -182,19 +182,6 @@ class Persistance
     puts ' '
   end
 
-  # def save_genres(genres)
-  #   File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w')
-  #   puts '***Saving genres 🎵🎵 ...'
-  #   puts "Saved #{genres.length} genres."
-  #   puts '________________________Saved 100% successfully ✅✅___________________________________________'
-  # end
-  #  def save_music_albums(music_albums)
-  #   File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
-  #   puts '***Saving music albums 🎵🎵 ...'
-  #   puts '________________________Saved 100% successfully ✅✅___________________________________________'
-  # end
-  #  Load Genres
-
   def load_genres
        unless File.empty?('./db/genres.json')
          genre_base = JSON.parse(File.read('./db/genres.json'))
