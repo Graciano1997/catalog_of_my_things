@@ -70,5 +70,14 @@
     "publisher": "Gra",
     "cover_state": "good",
     "publish_date": "2023-12-12"
+  },
+  {
+    "id": 826,
+    "title": "Microverse",
+    "color": "red",
+    "id_label": 874,
+    "publisher": "Gra",
+    "cover_state": "good",
+    "publish_date": "2023-12-12"
   }
 ]
