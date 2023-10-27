@@ -4,13 +4,14 @@ require_relative 'persistence'
 
 class App
   attr_accessor :book_controller_object, :label_controller_object
+
   def initialize
-    @persistence_controller=Persistance.new
-    @book_controller_object=BookController.new
-    @label_controller_object=LabelController.new
-    @book_controller_object.books_db=@persistence_controller.books
-    @book_controller_object.label_db=@persistence_controller.labels
-    @label_controller_object.label_db=@persistence_controller.labels
+    @persistence_controller = Persistance.new
+    @book_controller_object = BookController.new
+    @label_controller_object = LabelController.new
+    @book_controller_object.books_db = @persistence_controller.books
+    @book_controller_object.label_db = @persistence_controller.labels
+    @label_controller_object.label_db = @persistence_controller.labels
   end
 
   # MENU_OPTION = {
@@ -29,14 +30,14 @@ class App
   def call(option)
     case option
     when 1
-    self.book_controller_object.list_all_books
+      book_controller_object.list_all_books
     when 2
-    self.label_controller_object.list_all_labels
+      label_controller_object.list_all_labels
     when 3
-    self.book_controller_object.add_book
-    @label_controller_object.label_db=@book_controller_object.label_db
+      book_controller_object.add_book
+      @label_controller_object.label_db = @book_controller_object.label_db
     when 0
-      self.quit
+      quit
     end
   end
 
@@ -50,8 +51,6 @@ class App
     puts 'Please 🌟🌟💫✨ on Github'
     puts ' '
   end
-
-
 end
 
 # app=App.new

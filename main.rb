@@ -1,5 +1,5 @@
-require_relative './classes/app'
-require_relative './classes/userinterface'
+require_relative 'classes/app'
+require_relative 'classes/userinterface'
 
 class Main
   def main
@@ -8,7 +8,7 @@ class Main
     loop do
       menu.show
       app.call(menu.option) if (0..9).include?(menu.option)
-      break if menu.option == 0
+      break if menu.option.zero?
     end
   end
 end

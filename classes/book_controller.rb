@@ -5,6 +5,7 @@ require_relative 'label_controller'
 
 class BookController
   attr_accessor :books_db, :label_db
+
   def initialize
     @books_db = []
     @label_db = []

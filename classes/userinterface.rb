@@ -1,5 +1,6 @@
 class UserInterface
   attr_accessor :option
+
   def show()
     puts ' '
     puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎧 🎮 '
