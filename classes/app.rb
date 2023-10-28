@@ -34,32 +34,60 @@ class App
     @book_controller_object.books_db = @persistence_controller.books
   end
 
+  MENU_OPTION = {
+    '1' => :list_all_books,
+    '2' => :list_all_labels,
+    '3' => :add_book_and_share_label_db,
+    '4' => :list_all_musics,
+    '5' => :list_all_genres,
+    '6' => :add_music_and_share_genre_db,
+    '7' => :list_all_games,
+    '8' => :list_all_authors,
+    '9' => :add_game_and_share_author_db,
+    '0' => :quit
+  }.freeze
+
   def call(option)
-    case option
-    when 1
-      @book_controller_object.list_all_books
-    when 2
-      @label_controller_object.list_all_labels
-    when 3
-      book_controller_object.add_book
-      @label_controller_object.label_db = @book_controller_object.label_db
-    when 4
-      @music_album_controller_object.list_all_musics
-    when 5
-      @genre_controller_object.list_all_genres
-    when 6
-      @music_album_controller_object.add_music
-      @genre_controller_object.genre_db = @music_album_controller_object.genre_db
-    when 7
-      @game_controller_object.list_all_games
-    when 8
-      @author_controller_object.list_all_authors
-    when 9
-      @game_controller_object.add_game
-      @author_controller_object.author_db = @game_controller_object.author_db
-    when 0
-      quit
-    end
+    send(MENU_OPTION[option.to_s])
+  end
+
+  def list_all_books
+    @book_controller_object.list_all_books
+  end
+
+  def list_all_labels
+    @label_controller_object.list_all_labels
+  end
+
+  def add_book_and_share_label_db
+    @book_controller_object.add_book
+    @label_controller_object.label_db = @book_controller_object.label_db
+  end
+
+  def list_all_musics
+    @music_album_controller_object.list_all_musics
+  end
+
+  def list_all_genres
+    @genre_controller_object.list_all_genres
+  end
+
+  def add_music_and_share_genre_db
+    @music_album_controller_object.add_music
+    @genre_controller_object.genre_db = @music_album_controller_object.genre_db
+  end
+
+  def list_all_games
+    @game_controller_object.list_all_games
+  end
+
+  def list_all_authors
+    @author_controller_object.list_all_authors
+  end
+
+  def add_game_and_share_author_db
+    @game_controller_object.add_game
+    @author_controller_object.author_db = @game_controller_object.author_db
   end
 
   def quit
