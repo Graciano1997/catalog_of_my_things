@@ -20,16 +20,6 @@ describe Author do
       expect(author_object).to respond_to(:id)
     end
 
-    # it 'Should respond to :title, :color, :id  :items methods ' do
-    #   title = 'Microverse'
-    #   color = 'Purple'
-    #   label_object = Label.new(title,color)
-    #   expect(label_object).to respond_to(:title)
-    #   expect(label_object).to respond_to(:color)
-    #   expect(label_object).to respond_to(:items)
-    #   expect(label_object).to respond_to(:id)
-    # end
-
     # it 'Should have @items should be Empty  ' do
     #   title = 'Microverse'
     #   color = 'Purple'
