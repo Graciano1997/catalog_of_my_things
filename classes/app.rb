@@ -11,13 +11,10 @@ class App
 
   def initialize
     @persistence_controller = Persistance.new
-
     @book_controller_object = BookController.new
     @label_controller_object = LabelController.new
-
     @genre_controller_object = GenreController.new
     @music_album_controller_object = MusicAlbumController.new
-
     @author_controller_object = AuthorController.new
     @game_controller_object = GameController.new
 
