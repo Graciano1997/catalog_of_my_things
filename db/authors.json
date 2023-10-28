@@ -1,18 +1,10 @@
 [
   {
-    "id": 234,
+    "id": 250,
     "first_name": "Gra",
-    "last_name": "Mariana",
+    "last_name": "Soft",
     "items_id": [
-      184
-    ]
-  },
-  {
-    "id": 707,
-    "first_name": "Graciano",
-    "last_name": "Henrique",
-    "items_id": [
-      346
+      871
     ]
   }
 ]

@@ -112,7 +112,7 @@ class Persistance
       game_base = JSON.parse(File.read('./db/games.json'))
       games = []
         game_base.each do |game|
-        game_item = Game.new(game['publish_date'], game['multiplayer'],game['lastplayed_at'])
+        game_item = Game.new(game['publish_date'], game['multiplayer'],game['last_played_at'])
         game_item.id = game['id']
         game_author = Author.new(game['first_name'], game['last_name'])
         game_author.id = game['id_author']

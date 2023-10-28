@@ -1,21 +1,11 @@
 [
   {
-    "id": 184,
+    "id": 871,
     "multiplayer": true,
-    "last_played_at": null,
-    "id_author": 234,
+    "last_played_at": "2020-12-12",
+    "id_author": 250,
     "first_name": "Gra",
-    "last_name": "Mariana",
-    "publish_date": "2010-10-10",
-    "archived": true
-  },
-  {
-    "id": 346,
-    "multiplayer": true,
-    "last_played_at": null,
-    "id_author": 707,
-    "first_name": "Graciano",
-    "last_name": "Henrique",
+    "last_name": "Soft",
     "publish_date": "2023-12-12",
     "archived": false
   }

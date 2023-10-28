@@ -21,7 +21,6 @@ class AuthorController
       end
     end
     puts ' '
-
     puts "Games Authors List Displayed Successfully_______________________👤_🎮_✅"
   end
 end
