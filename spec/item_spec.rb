@@ -1,55 +1,58 @@
 require 'date'
 require_relative '../classes/item'
 
-RSpec.describe Item do
-  let(:current_year) { Date.today.year }
-  let(:ten_years_ago) { Date.today - (10 * 365) }
 
-  describe 'Initialization' do
-    context 'when no publish date is provided' do
-      it 'sets the publish_date to the current date' do
-        item = Item.new(nil)
-        expect(item.publish_date).to eq(Date.today)
+describe Item do
+    context 'when an Item is being initialized ' do
+      it 'Should be an Item class instance ' do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object).to be_instance_of Item
+      end
+
+      it 'Should respond to :author method ' do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object).to respond_to(:author)
+      end
+
+      it 'Should respond to :genre, :label, :publish_date, :id, move_to_archive? methods ' do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object).to respond_to(:genre)
+        expect(item_object).to respond_to(:label)
+        expect(item_object).to respond_to(:publish_date)
+        expect(item_object).to respond_to(:id)
+        expect(item_object).to respond_to(:move_to_archive?)
+      end
+
+      it 'Should have @genre = nil @author = nil @label = nil methods ' do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object.genre).to be nil
+        expect(item_object.author).to be nil
+        expect(item_object.label).to be nil
+        expect(item_object.id).not_to be nil
+      end
+
+      it 'id Should not be nil' do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object.id).not_to be nil
       end
     end
 
-    context 'when a publish date is provided' do
-      it 'sets the publish_date to the provided date' do
-        publish_date = Date.new(2010, 1, 1)
-        item = Item.new(publish_date)
-        expect(item.publish_date).to eq(publish_date)
-      end
+    context "when we want moving an item to archive" do
+      it "should move an item to archive" do
+        date_item="2010-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object.move_to_archive?).to be true
     end
 
-    it 'sets archived to true by default' do
-      item = Item.new(Date.new(2010, 1, 1))
-      expect(item.archived).to be(true)
+    it "should not move an item to archive" do
+        date_item="2023-12-10"
+        item_object = Item.new(date_item)
+        expect(item_object.move_to_archive?).to be nil
     end
-  end
-
-  describe '#can_be_archived?' do
-    it 'returns true for an item published more than 10 years ago' do
-      item = Item.new(ten_years_ago)
-      expect(item.can_be_archived?).to be(true)
     end
-
-    it 'returns false for an item published less than 10 years ago' do
-      item = Item.new(Date.today)
-      expect(item.can_be_archived?).to be(false)
-    end
-  end
-
-  describe '#move_to_archive' do
-    it 'sets archived to true for an item that can be archived' do
-      item = Item.new(ten_years_ago, archived: false)
-      item.move_to_archive
-      expect(item.archived).to be(true)
-    end
-
-    it 'leaves archived as false for an item that cannot be archived' do
-      item = Item.new(Date.today, archived: false)
-      item.move_to_archive
-      expect(item.archived).to be(false)
-    end
-  end
 end
