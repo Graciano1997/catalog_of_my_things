@@ -1,7 +1,6 @@
 require 'date'
 require_relative '../classes/item'
 
-
 describe Item do
   context 'when Item is initialized' do
     it 'Should be an Item class instance ' do
