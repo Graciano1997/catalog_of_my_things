@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  <h1><b>catalog-of-my-things</b></h1>
+  <h1><b>Awesome Catalog-Of-My-Things</b></h1>
 
 </div>
 
@@ -10,11 +10,11 @@
 
 ## 📗 Table of Contents
 
-- [📖 Decode Morse Code ](#decode-morse-code)
+- [📖 Catalog-Of-My-Things ](#catalog-of-my-things)
   - [🛠 Built With ](#built-with)
     - [Tech Stack ](#tech-stack)
     - [Key Features ](#key-features)
-  - [Live Demo](#live-demo)
+  - [Demo](#demo)
   - [💻 Getting Started ](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
@@ -29,9 +29,9 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Catalog <a name="about-project"></a>
+# 📖 Awesome Catalog-Of-My-Things <a name="about-project"></a>
 
-**Catalog** is a console app that will help you to keep a record of different types of things you own: books, music albums, movies, and games. Everything will be based on the [UML class diagram](./uml_catalog.png). The data will be stored in JSON files but you will also prepare a database with tables structure analogical to your program's class structure.
+**Is**  a console app that helps you to keep a record of your : books, music albums, and games that you own. Everything was  based on the [UML class diagram](./uml_catalog.png). The data is stored in JSON files but we prepared a database schema that give us the analogical tables structure  of our  program's.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -46,12 +46,15 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **Built methods using Ruby**
+- **List all your Books,Labels, Games**
+- **Add Books,Music-s Album and Games**
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## 🚀 Live Demo <a name="live-demo"></a>
+## 🚀 Demo <a name="demo"></a>
 [Video presentation](https://drive.google.com/file/d/1dfksKbotZR6lY-vdbJkmSV7FuP6dxdOe/view?usp=sharing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -119,7 +122,7 @@ it will install the required gemfile for running the project
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- **Add Database to store recent message**
+- **Add Database to store all data**
 - **Add Ui**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
