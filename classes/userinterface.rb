@@ -2,7 +2,6 @@ class UserInterface
   attr_accessor :option
 
   def show()
-    `clear`
     puts ' '
     puts '-------------- AWESOME CATALOG OF MY THINGS 📚 🎵 🎮 '
     puts ' '

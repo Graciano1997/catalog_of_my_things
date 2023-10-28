@@ -3,6 +3,7 @@ require_relative 'persistence'
 
 class LabelController
   attr_accessor :label_db
+
   def initialize
     persistence_controller = Persistance.new
     @label_db = persistence_controller.labels

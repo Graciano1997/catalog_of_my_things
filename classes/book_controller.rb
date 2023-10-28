@@ -49,7 +49,7 @@ class BookController
   def list_all_books
     puts ' '
     puts 'Run:: 👇 List All Books________________________________________________📖'
-        puts ' '
+    puts ' '
     if @books_db.empty?
       puts 'There is no Book in your Collection !'
       puts 'You are welcome to add it! 📖'

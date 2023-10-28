@@ -32,7 +32,6 @@ class App
     @book_controller_object.label_db = @persistence_controller.labels
     @label_controller_object.label_db = @persistence_controller.labels
     @book_controller_object.books_db = @persistence_controller.books
-
   end
 
   def call(option)
@@ -49,30 +48,30 @@ class App
     when 5
       @genre_controller_object.list_all_genres
     when 6
-       @music_album_controller_object.add_music
-       @genre_controller_object.genre_db=@music_album_controller_object.genre_db
+      @music_album_controller_object.add_music
+      @genre_controller_object.genre_db = @music_album_controller_object.genre_db
     when 7
       @game_controller_object.list_all_games
     when 8
       @author_controller_object.list_all_authors
     when 9
       @game_controller_object.add_game
-      @author_controller_object.author_db=@game_controller_object.author_db
+      @author_controller_object.author_db = @game_controller_object.author_db
     when 0
       quit
     end
   end
 
   def quit
-    
-    books=@book_controller_object.books_db
-    labels=@book_controller_object.label_db
-    music_album=@music_album_controller_object.music_db
-    genrers=@music_album_controller_object.genre_db
-    authors=@game_controller_object.author_db
-    games=@game_controller_object.games_db
+    db_items={"books" =>@book_controller_object.books_db,
 
-    @persistence_controller.save_all(books,labels ,music_album,genrers,authors,games)
+    "labels" => @book_controller_object.label_db,
+    "music_album" => @music_album_controller_object.music_db,
+    "genres" => @music_album_controller_object.genre_db,
+    "authors" => @game_controller_object.author_db,
+    "games" => @game_controller_object.games_db}
+
+    @persistence_controller.save_all(db_items)
     puts ' '
     puts ' '
     puts 'Thank you for using this App! 🙏🙏'

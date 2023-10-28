@@ -3,6 +3,7 @@ require_relative 'persistence'
 
 class AuthorController
   attr_accessor :author_db
+
   def initialize
     @author_db = []
   end
@@ -21,6 +22,6 @@ class AuthorController
       end
     end
     puts ' '
-    puts "Games Authors List Displayed Successfully_______________________👤_🎮_✅"
+    puts 'Games Authors List Displayed Successfully_______________________👤_🎮_✅'
   end
 end
