@@ -2,7 +2,6 @@ require 'date'
 require_relative '../classes/label'
 require_relative '../classes/book'
 
-
 describe Label do
   context 'when Label is initialized' do
     it 'Should be an Label class instance ' do
