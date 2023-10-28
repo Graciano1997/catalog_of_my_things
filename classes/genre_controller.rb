@@ -10,7 +10,7 @@ class GenreController
 
     def list_all_genres
         puts ' '
-        puts 'Run:: 👉 List Genres Collection_________________________________🎵'
+        puts 'Run:: 👇 List Genres Collection_________________________________________🎵'
         puts ' '
 
         if @genre_db.empty?
@@ -23,6 +23,6 @@ class GenreController
             end
         end
         puts ' '
-        puts 'Genre List Displayed Successfully____________________________✅ 🎵'
+        puts 'Genre List Displayed Successfully___________________________________✅ 🎵'
     end
 end

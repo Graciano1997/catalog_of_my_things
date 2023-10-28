@@ -10,7 +10,7 @@ class LabelController
 
   def list_all_labels
     puts ' '
-    puts 'Run:: 👉 List All Labels________________________________________🔖'
+    puts 'Run:: 👇 List All Labels________________________________________________🔖'
     puts ' '
     if @label_db.empty?
       puts ' '
@@ -23,6 +23,6 @@ class LabelController
       end
     end
     puts ' '
-    puts 'Labels List Displayed Successfully___________________________🔖 ✅'
+    puts 'Labels List Displayed Successfully__________________________________🔖 ✅'
   end
 end

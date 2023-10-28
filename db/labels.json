@@ -1,25 +1,3 @@
 [
-  {
-    "id": 874,
-    "title": "Microverse",
-    "color": "red",
-    "items_id": [
-      417,
-      547,
-      929,
-      930,
-      826
-    ]
-  },
-  {
-    "id": 789,
-    "title": "Graciano",
-    "color": "Blue",
-    "items_id": [
-      193,
-      572,
-      917,
-      476
-    ]
-  }
+
 ]

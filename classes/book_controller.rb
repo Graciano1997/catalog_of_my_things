@@ -44,13 +44,13 @@ class BookController
     @books_db << book_item
     @label_db << book_label unless @label_db.include?(book_label)
     puts ' '
-    puts 'Book Created Successfully_________________________________📖 ✅'
+    puts 'Book Created Successfully__________________________________________📖 ✅'
   end
 
   def list_all_books
     puts ' '
-    puts 'Run:: 👉 List All Books______________________________________📖'
-    puts ' '
+    puts 'Run:: 👇 List All Books________________________________________________📖'
+        puts ' '
     if @books_db.empty?
       puts 'There is no Book in your Collection !'
       puts 'You are welcome to add it! 📖'
@@ -60,6 +60,6 @@ class BookController
       end
     end
     puts ' '
-    puts 'Book List Displayed Successfully___________________________📕 ✅'
+    puts 'Book List Displayed Successfully____________________________________📕 ✅'
   end
 end

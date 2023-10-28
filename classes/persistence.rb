@@ -3,9 +3,11 @@ require_relative 'book'
 require_relative 'label'
 require_relative 'genre'
 require_relative 'music_album'
+require_relative 'game'
+require_relative 'author'
 
 class Persistance
-  attr_accessor :labels, :books, :genres, :music_album
+  attr_accessor :labels, :books, :genres, :music_album, :games, :authors
   def initialize
     unless Dir.exist?('db')
       Dir.mkdir('db')
@@ -22,7 +24,22 @@ class Persistance
      @labels = load_labels || []
      @music_album = load_music_albums || []
      @genres = load_genres || []
+     @authors = load_authors || []
+     @games = load_games || []
   end
+
+   def load_game_item(id)
+     return if File.empty?('./db/games.json')
+     game_base = JSON.parse(File.read('./db/games.json'))
+     game_item = nil
+     game_base.each do |game|
+       if game['id'].to_i == id.to_i
+         game_item = game
+         break
+       end
+     end
+     game_item
+   end
 
    def load_music_album_item(id)
      return if File.empty?('./db/musics.json')
@@ -70,6 +87,42 @@ class Persistance
     @labels = labels
   end
 
+   def load_authors
+     unless File.empty?('./db/authors.json')
+       author_base = JSON.parse(File.read('./db/authors.json'))
+       authors = []
+       author_base.each do |author|
+         author_item = Author.new(author['first_name'], author['last_name'])
+         author_item.id = author['id']
+         author['items_id'].each do |item|
+           next unless load_game_item(item)
+           game_item_data = load_game_item(item)
+           game_item = Game.new(game_item_data['publish_date'], game_item_data['multiplayer'],game_item_data['lastplayed_at'])
+           game_item.id = game_item_data['id']
+           author_item.add_item(game_item)
+         end
+         authors << author_item
+       end
+     end
+     @authors = authors
+   end
+
+  def load_games
+    unless File.empty?('./db/games.json')
+      game_base = JSON.parse(File.read('./db/games.json'))
+      games = []
+        game_base.each do |game|
+        game_item = Game.new(game['publish_date'], game['multiplayer'],game['lastplayed_at'])
+        game_item.id = game['id']
+        game_author = Author.new(game['first_name'], game['last_name'])
+        game_author.id = game['id_author']
+        game_item.author = game_author
+        games << game_item
+      end
+    end
+    @games = games
+  end
+
   def load_books
     unless File.empty?('./db/books.json')
       book_base = JSON.parse(File.read('./db/books.json'))
@@ -84,6 +137,43 @@ class Persistance
       end
     end
     @books = books
+  end
+
+  def load_genres
+    unless File.empty?('./db/genres.json')
+      genre_base = JSON.parse(File.read('./db/genres.json'))
+      genres = []
+      genre_base.each do |genre_item|
+       genre_item_object = Genre.new(genre_item['name'])
+       genre_item_object.id = genre_item['id']
+        genre_item['items_id'].each do |item|
+        next unless load_music_album_item(item)
+        music_item_data = load_music_album_item(item)
+          music_item = MusicAlbum.new(music_item_data['publish_date'],music_item_data['on_spotify'])
+          music_item.id = music_item_data['id']
+          genre_item_object.add_item(music_item)
+         end
+       genres << genre_item_object
+   end
+   @genres = genres
+  end
+ end
+
+  def game_hashed(games)
+    game_objects = []
+    games.each do |game|
+      game_hash = {}
+      game_hash['id'] = game.id.to_i
+      game_hash['multiplayer'] = game.multiplayer
+      game_hash['last_played_at'] = game.lastplayed_at
+      game_hash['id_author'] = game.author.id.to_i
+      game_hash['first_name'] = game.author.first_name
+      game_hash['last_name'] = game.author.last_name
+      game_hash['publish_date'] = game.publish_date
+      game_hash['archived'] = game.archived
+      game_objects << game_hash
+    end
+    game_objects
   end
 
   def book_hashed(books)
@@ -117,6 +207,23 @@ class Persistance
       label_objects << label_hash
     end
     label_objects
+  end
+
+  def author_hashed(authors)
+    author_objects = []
+    authors.each do |author|
+      author_hash = {}
+      author_hash['id'] = author.id
+      author_hash['first_name'] = author.first_name
+      author_hash['last_name'] = author.last_name
+      items_key = []
+      author.items.each do |item|
+        items_key << item.id.to_i
+      end
+      author_hash['items_id'] = items_key
+      author_objects << author_hash
+    end
+    author_objects
   end
 
   def genre_hashed(genres)
@@ -165,7 +272,7 @@ class Persistance
      music_objects
    end
 
-   def save_all(books, labels,music_albums,genres)
+   def save_all(books, labels,music_albums,genres,authors,games)
     puts ' '
     puts ' 😋 🤩 Saving Time.....................................'
     puts ' '
@@ -175,6 +282,8 @@ class Persistance
     File.write('./db/labels.json', JSON.pretty_generate(label_hashed(labels)), mode: 'w')
     File.write('./db/musics.json', JSON.pretty_generate(music_albums_hashed(music_albums)), mode: 'w')
     File.write('./db/genres.json', JSON.pretty_generate(genre_hashed(genres)), mode: 'w') 
+    File.write('./db/authors.json', JSON.pretty_generate(author_hashed(authors)), mode: 'w') 
+    File.write('./db/games.json', JSON.pretty_generate(game_hashed(games)), mode: 'w') 
     puts 'Saving: 👉 75%'
     puts '________________________👉 Saved 100% 👈_______________'
     puts ' '
@@ -182,23 +291,4 @@ class Persistance
     puts ' '
   end
 
-  def load_genres
-       unless File.empty?('./db/genres.json')
-         genre_base = JSON.parse(File.read('./db/genres.json'))
-         genres = []
-         genre_base.each do |genre_item|
-          genre_item_object = Genre.new(genre_item['name'])
-          genre_item_object.id = genre_item['id']
-           genre_item['items_id'].each do |item|
-           next unless load_music_album_item(item)
-           music_item_data = load_music_album_item(item)
-             music_item = MusicAlbum.new(music_item_data['publish_date'],music_item_data['on_spotify'])
-             music_item.id = music_item_data['id']
-             genre_item_object.add_item(music_item)
-            end
-          genres << genre_item_object
-      end
-      @genres = genres
-     end
-    end
 end

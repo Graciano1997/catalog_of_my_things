@@ -13,7 +13,7 @@ class MusicAlbumController
 
     def add_music
         puts ' '
-        puts 'Run:: 👉 Creating New Music_Album__________________________________🎵'
+        puts 'Run:: 👉 Creating New Music_Album______________________________________🎵'
         puts ' '
         genre_controller_object = GenreController.new
         genre_controller_object.list_all_genres
@@ -40,12 +40,12 @@ class MusicAlbumController
         @music_db << music_element
         @genre_db << music_genre unless @genre_db.include?(music_genre)
         puts ' '
-        puts 'Music Added Successfully____________________________________🎵 ✅'
+        puts 'Music Added Successfully____________________________________________🎵 ✅'
       end
 
       def list_all_musics
         puts ' '
-        puts 'Run:: 👉 List All Musics______________________________________🎵'
+        puts 'Run:: 👇 List All Musics_______________________________________________🎵'
         puts ' '
         if @music_db.empty?
           puts 'There is no Music in your Collection !'
@@ -56,7 +56,7 @@ class MusicAlbumController
           end
         end
         puts ' '
-        puts 'Music List Displayed Successfully___________________________🎵 ✅'
+        puts 'Music List Displayed Successfully___________________________________🎵 ✅'
       end
 
 end
