@@ -1,7 +1,6 @@
 require 'date'
 require_relative 'music_album'
 require_relative 'genre'
-# require_relative 'persistence'
 
 class MusicAlbumController
     attr_accessor :genre_db, :music_db 
