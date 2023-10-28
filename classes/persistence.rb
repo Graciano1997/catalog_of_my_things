@@ -21,12 +21,12 @@ class Persistance
       `touch genres.json`
       Dir.chdir('../')
     end
-    @books = load_books || []
-    @labels = load_labels || []
-    @music_album = load_music_albums || []
-    @genres = load_genres || []
-    @authors = load_authors || []
-    @games = load_games || []
+    @books = load_books
+    @labels = load_labels
+    @music_album = load_music_albums
+    @genres = load_genres
+    @authors = load_authors
+    @games = load_games
   end
 
   def load_game_item(id)
@@ -89,7 +89,7 @@ class Persistance
         labels << label_item
       end
     end
-    @labels = labels
+    @labels = labels || []
   end
 
   def load_authors
@@ -110,7 +110,7 @@ class Persistance
         authors << author_item
       end
     end
-    @authors = authors
+    @authors = authors || []
   end
 
   def load_games
@@ -126,7 +126,7 @@ class Persistance
         games << game_item
       end
     end
-    @games = games
+    @games = games || []
   end
 
   def load_books
@@ -142,7 +142,7 @@ class Persistance
         books << book_item
       end
     end
-    @books = books
+    @books = books || []
   end
 
   def load_genres
@@ -163,7 +163,7 @@ class Persistance
       end
       genres << genre_item_object
     end
-    @genres = genres
+    @genres = genres || []
   end
 
   def game_hashed(games)
@@ -262,7 +262,7 @@ class Persistance
         music_albums_item << music_item
       end
     end
-    @music_albums = music_albums_item
+    @music_albums = music_albums_item || []
   end
 
   def music_albums_hashed(music_albums)

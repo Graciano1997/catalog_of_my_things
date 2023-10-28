@@ -63,13 +63,13 @@ class App
   end
 
   def quit
-    db_items={"books" =>@book_controller_object.books_db,
+    db_items = { 'books' => @book_controller_object.books_db,
 
-    "labels" => @book_controller_object.label_db,
-    "music_album" => @music_album_controller_object.music_db,
-    "genres" => @music_album_controller_object.genre_db,
-    "authors" => @game_controller_object.author_db,
-    "games" => @game_controller_object.games_db}
+                 'labels' => @book_controller_object.label_db,
+                 'music_album' => @music_album_controller_object.music_db,
+                 'genres' => @music_album_controller_object.genre_db,
+                 'authors' => @game_controller_object.author_db,
+                 'games' => @game_controller_object.games_db }
 
     @persistence_controller.save_all(db_items)
     puts ' '
