@@ -2,7 +2,6 @@ require 'date'
 require_relative '../classes/genre'
 require_relative '../classes/music_album'
 
-
 describe Genre do
   context 'when Genre is being initialized' do
     it 'Should be an Genre class instance ' do
