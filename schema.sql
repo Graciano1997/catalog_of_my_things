@@ -57,5 +57,3 @@ CREATE TABLE IF NOT EXISTS musicAlbum (
 
 CREATE INDEX index_music_album_item_id ON musicAlbum(id);
 CREATE INDEX index_genre_item_id ON Genre(id);
-
-
