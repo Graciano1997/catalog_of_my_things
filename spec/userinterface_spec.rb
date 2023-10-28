@@ -1,7 +1,6 @@
 require 'date'
 require_relative '../classes/userinterface'
 
-
 describe UserInterface do
   context 'when Userinterface is initialized' do
     it 'Should respond to :option method' do
